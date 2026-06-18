@@ -1,0 +1,17 @@
+
+streamlit
+streamlit-option-menu
+streamlit-extras
+plotly
+pandas
+numpy
+pdfplumber
+PyPDF2
+python-pptx
+transformers
+torch
+sentence-transformers
+keybert
+faiss-cpu
+python-docx
+fpdf2

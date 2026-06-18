@@ -1,0 +1,206 @@
+Project Initiation and
+Evaluation
+CSE 4032 - TOPIC 2
+Mr. Madusanka Nipunajith
+Madusanka Nipunajith - CSE 4032
+Agenda
+• Project Initiation (Topic 1)
+• Software Development Life Cycle
+• Software Development Methodology
+• Objectives in project initiation
+• Activities in project initiation
+• Project Evaluation (Topic 2)
+• Assessments (3 Types) - Economic Assessment
+• Cash Flow Forecasting
+• Exercises
+Madusanka Nipunajith - CSE 4032
+Phases Of
+Software
+Project
+Lifecycle
+Madusanka Nipunajith - CSE 4032
+SDLC & Methodology
+• The PDLC describes the sequential phases that every
+project passes through, regardless of approach.
+• The PDLC represents what happens in a project from
+beginning to end - The natural progression of activities.
+• Methodologies define how to approach the project work.
+• Waterfall
+• Agile
+• Hybrid
+• The methodology is the framework and techniques for
+navigating through the life cycle phases.
+Madusanka Nipunajith - CSE 4032
+Software Development
+Methodologies
+• Waterfall
+• Sequential, phase-based approach where each
+phase must be completed before the next
+begins.
+• Agile
+• Iterative, incremental approach focusing on
+flexibility and customer collaboration.
+• Ex: Scrum, Kanban, XP (Extreme Programming)
+• Hybrid
+• Combining elements of both waterfall and agile
+• Ex: SAFe (Scaled Agile Framework)
+Madusanka Nipunajith - CSE 4032
+SDLC & Methodology
+Madusanka Nipunajith - CSE 4032
+Objectives in
+Project Initiation
+• Align the stakeholders’ expectations
+with the project purpose.
+• Set the vision of the project – what
+needs to be accomplished.
+• Provide visibility on scope and
+objectives.
+• Reduce the overhead of involvement.
+• Minimize risk and uncertainty.
+Madusanka Nipunajith - CSE 4032
+Risk and Uncertainty
+• Risk (Known Events)
+• Risk is something we know might happen, and we can plan
+for it.
+• Potential event
+• Example: Team member resigns during development
+• Uncertainty (Unknown Events)
+• Uncertainty is when we don’t even know what might
+happen or how to prepare.
+• completely unpredictable or immeasurable.
+• Example: A sudden new law that affects software usage
+(GDPR)
+Madusanka Nipunajith - CSE 4032
+Handling Risk and Uncertainty
+• Risk
+• Risk Identification (2 main approaches)
+• Risk Assessment (Risk Exposure)
+• Risk Mitigation Plan
+• Uncertainty
+• Build flexibility into your plan
+• Agile methods
+• Continuous feedback loops
+• Keep a buffer budget/time for surprises
+Madusanka Nipunajith - CSE 4032
+Activities in
+Project
+Initiation
+Madusanka Nipunajith - CSE 4032
+Business Case Document
+• Introduction and Background to the Proposal.
+• The proposed project.
+• The market: estimated demand, competitors.
+• The benefits.
+• The outline implementation plan.
+• Costs.
+• Risks.
+• Management plan.
+Madusanka Nipunajith - CSE 4032
+Business
+Case
+Document
+Madusanka Nipunajith - CSE 4032
+Feasibility Study
+• A comprehensive analysis assessing
+the practicality and viability of a
+proposed project or business idea.
+• Purpose: To decide whether the
+solution will deliver the expected
+outcome.
+• Outcome: A confirmed solution for
+implementation.
+Madusanka Nipunajith - CSE 4032
+Feasibility
+Study
+Madusanka Nipunajith - CSE 4032
+Steps to conduct the feasibility study
+1. Describe the business problem or opportunity.
+2. Document the business requirement for a
+solution.
+3. Identify all of the alternative solutions available.
+4. Review each solution to determine its feasibility.
+5. List any risks and issues with each solution.
+6. Choose a preferred solution.
+7. Document the result.
+Madusanka Nipunajith - CSE 4032
+Steps to conduct the feasibility study
+1. Describe the business problem or opportunity.
+• Website crashes when more than 100 users access it simultaneously.
+2. Document the business requirement for a solution.
+• System must handle 500 concurrent users without performance issues.
+3. Identify all of the alternative solutions available.
+• Upgrade current server, move to cloud hosting, or implement load balancing.
+4. Review each solution to determine its feasibility.
+• Cloud hosting can scale automatically to meet traffic demands with minimal configuration.
+5. List any risks and issues with each solution.
+• Cloud migration might cause 4-hour downtime; staff needs training on new platform.
+6. Choose a preferred solution.
+• Select AWS cloud hosting for its scalability and established migration tools.
+7. Document the result.
+• AWS cloud implementation will take 3 weeks and cost $5,000 for the migration.
+Madusanka Nipunajith - CSE 4032
+Project Charter
+Defines the purpose Decides the project Identifies the project
+(goals and objectives) duration. scope and
+of the project. deliverables.
+Identify the financial Identifies the
+and other resource stakeholders and their
+requirements. roles and
+responsibilities.
+Madusanka Nipunajith - CSE 4032
+Project
+Charter
+Madusanka Nipunajith - CSE 4032
+Business Case vs. Project Charter
+• Simple Analogy
+• Business Case: Should we do this project and why? (If yes, Project Charter)
+• Project Charter: We are doing this project. Here’s how and who’s responsible
+• Business Case (Hospital System)
+• The hospital needs a new patient record system to reduce paperwork, improve
+accuracy, and save 20% in admin costs. The investment is LKR 4M, with an
+expected ROI of 35% in 2 years.
+• Project Charter (Hospital System)
+• This project will develop and deploy a new patient record system. The project
+manager is Madusanka, and the project will include features A, B, and C. It must
+be delivered in 6 months under an LKR 4M budget.
+Madusanka Nipunajith - CSE 4032
+Business Case vs.
+Project Charter
+• Exercise (10 mins)
+• What is the difference between a
+project charter and a business case in
+different aspects?
+• Purpose
+• Focus
+• Content
+• Created by
+• Audience
+• Timing
+• Outcome
+Madusanka Nipunajith - CSE 4032
+Business Case vs. Project Charter
+Aspect Business Case Project Charter
+Purpose Justify why the project should be Formally authorizes the project to begin
+undertaken
+Focus Value, Benefits, ROI and etc Scope, Authority, Responsibilities and etc
+Content Cost benefit analysis, Risks and etc Objectives, Stakeholders, Constraints and
+etc
+Created by BA (Business Analyst) Product/Project Manager
+Audience Executives, Decision makers Project team and stakeholders
+Timing Before the project is approved After the project is approved
+Outcome Leads to go/no-go decision Grants formal authorization to start the
+project
+Madusanka Nipunajith - CSE 4032
+Project Team
+Madusanka Nipunajith - CSE 4032
+Madusanka Nipunajith - CSE 4032
+Project
+Management Office
+• Organizing meetings and events
+• Resource acquisition and allocation
+• Support monitoring and controlling
+• Communication handling
+• Administrative record handling
+• Reporting lessons learnt
+• Prepare project reports
+Madusanka Nipunajith - CSE 4032
