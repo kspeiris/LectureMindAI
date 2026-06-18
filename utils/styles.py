@@ -16,16 +16,18 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
 /* Fix the white block container that Streamlit adds */
 [data-testid="stAppViewContainer"],
-[data-testid="stAppViewBlockContainer"],
+[data-testid="stMain"] {
+    background: transparent !important;
+}
+
 .block-container,
-[data-testid="stMain"],
 [data-testid="stMainBlockContainer"] {
     background: transparent !important;
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
-    padding-left: 2.5rem !important;
-    padding-right: 2.5rem !important;
-    max-width: 1200px !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    max-width: 1400px !important;
 }
 
 /* ===== SIDEBAR ===== */
@@ -426,8 +428,8 @@ hr {
 ::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.65); }
 
 /* ===== COLUMN GAPS ===== */
-[data-testid="stHorizontalBlock"] { gap: 1rem !important; }
-[data-testid="stVerticalBlock"] { gap: 0 !important; }
+[data-testid="stHorizontalBlock"] { gap: 1.5rem !important; }
+[data-testid="stVerticalBlock"] { gap: 1.5rem !important; }
 
 /* ============================================================
    CUSTOM COMPONENT CLASSES
