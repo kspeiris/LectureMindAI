@@ -101,15 +101,20 @@ def check_duplicate_file(file_hash: str) -> dict | None:
 def save_notes(lecture_id: int, summary: str, keywords: str):
     """Insert or replace notes for a lecture (upsert on lecture_id)."""
     with get_connection() as conn:
-        conn.execute(
-            '''INSERT INTO notes (lecture_id, summary, keywords)
-               VALUES (?, ?, ?)
-               ON CONFLICT(lecture_id) DO UPDATE SET
-                   summary      = excluded.summary,
-                   keywords     = excluded.keywords,
-                   generated_at = CURRENT_TIMESTAMP''',
-            (lecture_id, summary, keywords)
-        )
+        cursor = conn.execute('SELECT id FROM notes WHERE lecture_id = ?', (lecture_id,))
+        if cursor.fetchone():
+            conn.execute(
+                '''UPDATE notes 
+                   SET summary = ?, keywords = ?, generated_at = CURRENT_TIMESTAMP
+                   WHERE lecture_id = ?''',
+                (summary, keywords, lecture_id)
+            )
+        else:
+            conn.execute(
+                '''INSERT INTO notes (lecture_id, summary, keywords)
+                   VALUES (?, ?, ?)''',
+                (lecture_id, summary, keywords)
+            )
         conn.commit()
 
 
