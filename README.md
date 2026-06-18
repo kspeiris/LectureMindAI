@@ -1,30 +1,42 @@
 # LectureMind AI 📚
 
-LectureMind AI is a Streamlit-based study companion that turns lecture files into structured notes, flashcards, multiple-choice quizzes, exports, analytics, and a searchable study assistant.
+LectureMind AI is a local-first, Streamlit-based study companion that transforms lecture files (PDF, PPTX, TXT) into structured notes, flashcards, multiple-choice quizzes, exports, analytics, and a searchable Retrieval-Augmented Generation (RAG) study assistant.
 
-The project is built as a local-first learning tool: uploaded files are processed on the user's machine, extracted text is stored in SQLite, and retrieval indexes are generated on demand for question answering.
+Built for privacy and cost-efficiency, the project relies entirely on local NLP inference using Hugging Face Transformers, Sentence Transformers, and FAISS. No external API calls are made, meaning all lecture data remains completely private.
 
-## ✨ Features
+## ✨ Key Features
 
-- 📤 Upload PDF, PPTX, or TXT lecture material
-- 📝 Paste raw lecture notes or transcripts directly into the app
-- 🧠 Generate concise summaries and keyword lists
-- 📇 Create flashcards for active recall practice
-- ✅ Build MCQ quizzes with score tracking
-- 🔎 Ask lecture-specific questions with a RAG-based study assistant
-- 📊 View progress and quiz analytics from the dashboard
-- 📄 Export generated notes as PDF or DOCX files
-- 🎨 Streamlit multipage interface with a custom dark theme
+- **Multi-format Ingestion:** Upload PDF, PPTX, or TXT lecture materials, or paste raw text.
+- **Local LLM Summarization:** Generates clean, bullet-point summaries using instruction-tuned `flan-t5-base`.
+- **Keyword Extraction:** Uses `KeyBERT` to identify the most critical concepts in the text.
+- **Automated Study Tools:**
+  - **Flashcards:** Extracts Q&A pairs for active recall.
+  - **MCQ Quizzes:** Generates multiple-choice questions with model-generated distractors.
+- **RAG Study Assistant:** A local AI tutor powered by FAISS vector search and `flan-t5-base` for synthesizing answers to lecture-specific questions.
+- **Progress Tracking:** A dashboard with interactive Plotly charts tracking lectures uploaded, notes generated, and quiz scores.
+- **Document Export:** Export generated notes as cleanly formatted PDF or DOCX files.
+- **Premium UI:** A fully custom Streamlit dark-mode UI with glassmorphic cards, CSS animations, and polished layouts.
 
-## 🧱 Tech Stack
+## 🧱 Tech Stack & Architecture
 
-- **Frontend:** Streamlit
-- **Data storage:** SQLite
-- **Charts:** Plotly, Pandas
-- **Document parsing:** pdfplumber, python-pptx
-- **NLP models:** Transformers, Sentence Transformers, KeyBERT
-- **Retrieval:** FAISS vector indexes
-- **Exports:** python-docx, fpdf2
+This application is built with a focus on local-first processing, combining modern Python data science tools with local NLP inference to ensure data privacy and zero API costs.
+
+### Core Framework & Data
+- **[Streamlit](https://streamlit.io/):** Powers the responsive, multipage frontend. Custom CSS is injected via `st.html()` to bypass Streamlit's default sanitization, allowing for a highly premium, Tailwind-inspired UI.
+- **[SQLite](https://www.sqlite.org/):** Lightweight, file-based relational database (`database/lecturemind.db`) used to persistently store lecture metadata, generated notes, flashcards, MCQs, and quiz results.
+- **[Pandas](https://pandas.pydata.org/) & [Plotly](https://plotly.com/python/):** Used in the Dashboard for data aggregation and interactive visualizations (e.g., gauge charts, progress bars).
+
+### Document Parsing & Export
+- **[pdfplumber](https://github.com/jsvine/pdfplumber):** Extracts raw text from uploaded PDF documents.
+- **[python-pptx](https://python-pptx.readthedocs.io/):** Extracts text from PowerPoint slide decks.
+- **[fpdf2](https://pyfpdf.github.io/fpdf2/) & [python-docx](https://python-docx.readthedocs.io/):** Dynamically generates downloadable PDF and DOCX files from the AI-generated study notes.
+
+### NLP & Machine Learning (Local Inference)
+- **[PyTorch](https://pytorch.org/) & [Hugging Face Transformers](https://huggingface.co/docs/transformers/index):** Underpins the local LLM generation. Uses lightweight Seq2Seq models (`google/flan-t5-base`) for summarization, MCQ generation, and QA synthesis.
+- **[KeyBERT](https://maartengr.github.io/KeyBERT/):** A minimal keyword extraction tool leveraging BERT embeddings to find the most representative sub-phrases in a document.
+- **[Sentence Transformers](https://www.sbert.net/):** Computes dense vector embeddings (`all-MiniLM-L6-v2`) for lecture chunks to enable semantic search.
+- **[FAISS](https://faiss.ai/) (Facebook AI Similarity Search):** Provides highly efficient, in-memory CPU vector indexing (`faiss.IndexFlatIP` with L2 normalization for cosine similarity) and nearest-neighbor search for the RAG pipeline.
+- **[NLTK](https://www.nltk.org/):** Used for robust sentence tokenization (`punkt`) prior to semantic chunking.
 
 ## 🗂️ Project Structure
 
@@ -32,81 +44,60 @@ The project is built as a local-first learning tool: uploaded files are processe
 LectureMindAI_Phase6_Integrated/
 ├── app.py                         # Main Streamlit entry page
 ├── pages/                         # Streamlit multipage views
-│   ├── 1_Dashboard.py
-│   ├── 2_Upload_Lecture.py
-│   ├── 3_Notes_Generator.py
-│   ├── 4_Notes_Viewer.py
-│   ├── 5_Flashcards.py
-│   ├── 6_MCQ_Quiz.py
-│   └── 8_AI_Study_Assistant.py
-├── database/                      # SQLite helpers and schema
-│   ├── database.py
-│   └── schema.sql
-├── models/                        # Summarization, keywords, quizzes, RAG
-├── services/                      # File parsing, exports, cleaning, logging
-├── utils/                         # Shared UI styling helpers
+│   ├── 1_Dashboard.py             # User stats and Plotly charts
+│   ├── 2_Upload_Lecture.py        # File upload and text extraction
+│   ├── 3_Notes_Generator.py       # Triggers AI models (Summaries, RAG indexing)
+│   ├── 4_Notes_Viewer.py          # Displays notes and handles PDF/DOCX exports
+│   ├── 5_Flashcards.py            # Flashcard review UI
+│   ├── 6_MCQ_Quiz.py              # Interactive quiz UI
+│   └── 8_AI_Study_Assistant.py    # Chat interface for the RAG engine
+├── database/
+│   ├── database.py                # SQLite CRUD operations
+│   └── schema.sql                 # Database table definitions
+├── models/
+│   ├── flashcard_generator.py     # Wrapper for flashcard logic
+│   ├── keyword_extractor.py       # KeyBERT implementation
+│   ├── mcq_generator.py           # FLAN-T5 logic for generating questions & distractors
+│   ├── rag_engine.py              # FAISS indexing and semantic search + FLAN-T5 synthesis
+│   └── summarizer.py              # FLAN-T5 instruction-tuned summarization
+├── services/
+│   ├── export_docx.py             # python-docx export logic
+│   ├── export_pdf.py              # fpdf2 export logic
+│   ├── pdf_processor.py           # pdfplumber extraction
+│   ├── ppt_processor.py           # python-pptx extraction
+│   └── text_cleaner.py            # Regex-based text normalization
+├── utils/
+│   └── styles.py                  # Shared custom CSS injected via st.html()
 ├── .streamlit/config.toml         # Streamlit theme configuration
-├── requirements.txt
-└── README.md
+├── requirements.txt               # Project dependencies
+└── README.md                      # Project documentation
 ```
 
-Runtime folders such as `uploads/`, `generated/`, `logs/`, `database/*.db`, and `vectorstore/` are intentionally ignored because they contain local user data or generated artifacts.
+*Note: Runtime folders such as `uploads/`, `generated/`, `logs/`, `database/*.db`, and `vectorstore/` are intentionally ignored by Git because they contain local user data or generated artifacts.*
 
-## 🏗️ Architecture
+## 🏗️ Architecture & Data Flow
 
 ```mermaid
 flowchart TD
-    A[User uploads or pastes lecture content] --> B[Text extraction and cleaning]
-    B --> C[SQLite lecture record]
-    C --> D[Notes and keyword generation]
-    C --> E[Flashcard generation]
-    C --> F[MCQ generation]
-    C --> G[Chunking and embedding]
-    G --> H[FAISS vector index]
-    H --> I[RAG study assistant]
-    D --> J[Notes viewer and export]
-    E --> K[Flashcard review]
-    F --> L[Quiz results]
-    J --> M[Dashboard analytics]
-    K --> M
-    L --> M
+    A[User uploads/pastes lecture] -->|pdfplumber/pptx| B[Text extraction & regex cleaning]
+    B --> C[(SQLite: Lecture metadata)]
+    C -->|FLAN-T5| D[Notes Summarization]
+    C -->|KeyBERT| E[Keyword Extraction]
+    C -->|FLAN-T5| F[Flashcards & MCQs Generation]
+    C -->|all-MiniLM-L6-v2| G[Semantic Chunking & Embedding]
+    G --> H[(FAISS Vector Index)]
+    H -->|User Query| I[RAG Retrieval & FLAN-T5 Synthesis]
+    D --> J[Notes Viewer & Document Export]
+    F --> K[Flashcards & Quizzes]
+    J --> L[Dashboard Analytics]
+    K --> L
 ```
 
-### Main Flow
-
-1. The user uploads a lecture file or pastes lecture text.
-2. The app extracts text, removes common artifacts, and stores lecture metadata.
-3. Notes, keywords, flashcards, and MCQs are generated from the cleaned content.
-4. The RAG engine chunks lecture text, builds embeddings, and saves a FAISS index.
-5. The dashboard and study pages read from SQLite to show progress and results.
-
-## 🖼️ Screenshots
-
-Add screenshots to `docs/screenshots/` and update the image paths below.
-
-### Dashboard
-
-![Dashboard screenshot](docs/screenshots/dashboard.png)
-
-### Upload Lecture
-
-![Upload lecture screenshot](docs/screenshots/upload-lecture.png)
-
-### Notes Generator
-
-![Notes generator screenshot](docs/screenshots/notes-generator.png)
-
-### Flashcards
-
-![Flashcards screenshot](docs/screenshots/flashcards.png)
-
-### MCQ Quiz
-
-![MCQ quiz screenshot](docs/screenshots/mcq-quiz.png)
-
-### AI Study Assistant
-
-![AI study assistant screenshot](docs/screenshots/study-assistant.png)
+### The RAG Pipeline Deep Dive
+1. **Chunking:** Extracted text is tokenized into sentences via NLTK, then grouped into overlapping chunks (max 150 words, 2-sentence overlap) to preserve context.
+2. **Embedding:** Chunks are embedded into dense vectors using `all-MiniLM-L6-v2` and L2-normalized.
+3. **Indexing:** Vectors are stored in a `FAISS IndexFlatIP` index on disk (`vectorstore/faiss_index/`), with corresponding raw text chunks pickled in `vectorstore/metadata/`.
+4. **Retrieval & Synthesis:** User queries are embedded, and the top-K chunks are retrieved via cosine similarity. `google/flan-t5-base` then synthesizes a natural-language answer based *strictly* on the retrieved context, assigning a confidence score based on vector distance.
 
 ## ⚙️ Installation
 
@@ -117,87 +108,38 @@ python -m venv venv
 ```
 
 On Windows:
-
 ```bash
 venv\Scripts\activate
 ```
 
 On macOS/Linux:
-
 ```bash
 source venv/bin/activate
 ```
 
 Install dependencies:
-
 ```bash
 pip install -r requirements.txt
 ```
 
 ## 🚀 Running the App
 
-Start the Streamlit app:
+Start the Streamlit application:
 
 ```bash
 streamlit run app.py
 ```
 
-Then open the local URL shown in the terminal, usually:
+Open the local URL shown in the terminal (usually `http://localhost:8501`).
 
-```text
-http://localhost:8501
-```
-
-## 🧪 Usage
+## 🧪 Usage Workflow
 
 1. Open **Upload Lecture** and upload a PDF, PPTX, TXT file, or paste lecture text.
-2. Go to **Notes Generator** and generate a summary, keywords, and the knowledge base.
-3. Review generated content in **Notes Viewer**.
-4. Practice with **Flashcards** and **MCQ Quiz**.
-5. Ask lecture-specific questions in **AI Study Assistant**.
-6. Track progress from the **Dashboard**.
+2. Go to **Notes Generator** to trigger the AI models (this will summarize the text, extract keywords, generate quizzes, and build the FAISS index).
+3. Review the generated content in the **Notes Viewer** (and optionally export to PDF/DOCX).
+4. Practice active recall with **Flashcards** and the **MCQ Quiz**.
+5. Ask lecture-specific questions in the **AI Study Assistant**.
+6. Track your overall study progress from the **Dashboard**.
 
-## 🗃️ Data and Generated Files
-
-The app creates local runtime files while it is being used:
-
-- `database/lecturemind.db` stores lectures, notes, flashcards, MCQs, and quiz results.
-- `uploads/` stores uploaded source files and extracted text.
-- `vectorstore/faiss_index/` stores generated FAISS indexes.
-- `vectorstore/metadata/` stores chunk metadata for retrieval.
-- `generated/` stores exported files.
-- `logs/` stores application logs.
-
-These files are ignored by Git because they are local outputs, not source code.
-
-## 🔐 Privacy Notes
-
-Lecture files, extracted text, generated notes, and vector indexes are stored locally in the project workspace. Avoid committing private lecture files, exported notes, local databases, or generated indexes to a public repository.
-
-## 🛠️ Maintenance
-
-Useful checks while developing:
-
-```bash
-git status
-```
-
-```bash
-python -m compileall .
-```
-
-```bash
-streamlit run app.py
-```
-
-## 📌 Roadmap
-
-- Add screenshot assets for the README
-- Add unit tests for text cleaning and generator helpers
-- Add optional database reset tools for demos
-- Add model configuration from environment variables
-- Add deployment notes for Streamlit Community Cloud
-
-## 📄 License
-
-Add a license file before publishing or distributing the project.
+## 🔐 Privacy & Local Execution
+Because this application relies exclusively on local models (`flan-t5`, `KeyBERT`, `Sentence Transformers`), **zero data leaves your machine**. Lecture files, extracted text, generated notes, and vector indexes are processed and stored locally in your workspace.
