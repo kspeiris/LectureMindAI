@@ -8,33 +8,55 @@ from utils.styles import inject_css, page_header
 
 inject_css()
 page_header("📤 Upload Lecture",
-            "Upload PDF or PPTX lecture files to start generating intelligent study aids.")
+            "Upload PDF, PPTX, or TXT lecture files to start generating intelligent study aids.")
 
 UPLOAD_DIR = os.path.join(os.path.dirname(__file__), '..', 'uploads')
 os.makedirs(os.path.join(UPLOAD_DIR, 'pdfs'),  exist_ok=True)
 os.makedirs(os.path.join(UPLOAD_DIR, 'pptx'),  exist_ok=True)
 os.makedirs(os.path.join(UPLOAD_DIR, 'texts'), exist_ok=True)
 
-# ── Upload widget ─────────────────────────────────────────────────────────
-uploaded_file = st.file_uploader(
-    "Choose a lecture file",
-    type=["pdf", "pptx"],
-    help="Supported formats: PDF, PowerPoint (PPTX)"
-)
+# ── Input Method ──────────────────────────────────────────────────────────
+tab1, tab2 = st.tabs(["📄 Upload File", "📝 Paste Text"])
 
-if uploaded_file is not None:
-    file_bytes = uploaded_file.read()
+with tab1:
+    uploaded_file = st.file_uploader(
+        "Choose a lecture file",
+        type=["pdf", "pptx", "txt"],
+        help="Supported formats: PDF, PowerPoint (PPTX), Text (TXT)"
+    )
+
+with tab2:
+    pasted_text = st.text_area(
+        "Paste your lecture text here",
+        height=200,
+        placeholder="Paste notes, transcripts, or articles here..."
+    )
+
+if uploaded_file is not None or pasted_text.strip():
+    if uploaded_file is not None and pasted_text.strip():
+        st.warning("⚠️ Please use either File Upload or Paste Text, but not both at the same time.")
+        st.stop()
+
+    if uploaded_file is not None:
+        file_bytes = uploaded_file.read()
+        filename = uploaded_file.name
+        source_label = "File"
+    else:
+        file_bytes = pasted_text.encode('utf-8')
+        filename = "pasted_text.txt"
+        source_label = "Pasted Text"
+
     file_hash  = hashlib.md5(file_bytes).hexdigest()
-    file_ext   = uploaded_file.name.split('.')[-1].lower()
+    file_ext   = filename.split('.')[-1].lower()
     file_size_kb = len(file_bytes) / 1024
 
     # ── File preview info ─────────────────────────────────────────────────
     st.markdown(
         f"""
-        <div class='info-strip'>
-        📄 <strong>{uploaded_file.name}</strong> &nbsp;·&nbsp;
+        <div class='bg-blue-400/10 border border-blue-400/20 rounded-lg px-4 py-2.5 text-blue-300 text-sm mb-3'>
+        📄 <strong>{filename if uploaded_file else "Pasted Text"}</strong> &nbsp;·&nbsp;
         {file_size_kb:.1f} KB &nbsp;·&nbsp;
-        {file_ext.upper()} file
+        {source_label}
         </div>
         """,
         unsafe_allow_html=True
@@ -51,7 +73,11 @@ if uploaded_file is not None:
         )
 
     # ── Custom title input ────────────────────────────────────────────────
-    suggested_title = uploaded_file.name.rsplit('.', 1)[0].replace('_', ' ').replace('-', ' ').title()
+    if uploaded_file is not None:
+        suggested_title = filename.rsplit('.', 1)[0].replace('_', ' ').replace('-', ' ').title()
+    else:
+        suggested_title = "Pasted Notes"
+        
     custom_title = st.text_input(
         "📝 Lecture Title",
         value=suggested_title,
@@ -68,7 +94,11 @@ if uploaded_file is not None:
             st.stop()
 
         # ── Save file ─────────────────────────────────────────────────────
-        file_path = os.path.join(UPLOAD_DIR, file_ext + 's', uploaded_file.name)
+        if not uploaded_file:
+            filename = f"pasted_{file_hash[:8]}.txt"
+            
+        save_dir = 'texts' if file_ext == 'txt' else file_ext + 's'
+        file_path = os.path.join(UPLOAD_DIR, save_dir, filename)
         with open(file_path, "wb") as f:
             f.write(file_bytes)
 
@@ -78,14 +108,14 @@ if uploaded_file is not None:
 
         def step(msg, pct):
             status.markdown(
-                f"<div class='step-item active'>⏳ &nbsp; {msg}</div>",
+                f"<div class='flex items-center gap-3 px-4 py-2 rounded-lg mb-1.5 text-sm text-purple-400 bg-purple-500/10 border border-purple-500/30 animate-pulse'>⏳ &nbsp; {msg}</div>",
                 unsafe_allow_html=True
             )
             progress.progress(pct)
 
         def done(msg):
             status.markdown(
-                f"<div class='step-item done'>✅ &nbsp; {msg}</div>",
+                f"<div class='flex items-center gap-3 px-4 py-2 rounded-lg mb-1.5 text-sm text-emerald-400 bg-emerald-400/5 border border-emerald-400/20'>✅ &nbsp; {msg}</div>",
                 unsafe_allow_html=True
             )
 
@@ -95,6 +125,13 @@ if uploaded_file is not None:
                 data = extract_text_from_pdf(file_path)
             elif file_ext == "pptx":
                 data = extract_text_from_ppt(file_path)
+            elif file_ext == "txt":
+                text_content = file_bytes.decode("utf-8", errors="ignore")
+                data = {
+                    "text": text_content,
+                    "pages": 1,
+                    "word_count": len(text_content.split())
+                }
             else:
                 st.error("Unsupported file type.")
                 st.stop()
@@ -109,7 +146,7 @@ if uploaded_file is not None:
             step("Saving to database…", 60)
             lecture_id = add_lecture(
                 title      = custom_title.strip(),
-                filename   = uploaded_file.name,
+                filename   = filename,
                 pages      = data['pages'],
                 word_count = data['word_count'],
                 file_hash  = file_hash,
