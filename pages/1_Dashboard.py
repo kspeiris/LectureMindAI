@@ -66,7 +66,7 @@ with col_left:
         yaxis=dict(title="Count", gridcolor='rgba(255,255,255,0.05)'),
     )
     fig.update_traces(marker_line_width=0)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)  # noqa: deprecated but compatible
 
 # ── Quiz Performance Chart ────────────────────────────────────────────────
 with col_right:
@@ -98,7 +98,7 @@ with col_right:
             xaxis=dict(gridcolor='rgba(255,255,255,0.05)'),
         )
         fig2.update_traces(line_width=2.5, marker_size=7)
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, use_container_width=True)  # noqa: deprecated but compatible
     else:
         st.info("📊 Take a quiz to see your performance history here!")
 
@@ -118,7 +118,7 @@ if all_results:
     df_hist = df_hist[display_cols].rename(columns={
         'lecture_title': 'Lecture', 'score': 'Score', 'total_questions': 'Total Qs'
     })
-    st.dataframe(df_hist, use_container_width=True, hide_index=True)
+    st.dataframe(df_hist, use_container_width=True, hide_index=True)  # noqa
 
 st.markdown("---")
 
