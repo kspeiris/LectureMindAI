@@ -25,7 +25,7 @@ else:
 
     if existing_notes:
         st.markdown(
-            "<div class='info-strip'>📝 Notes already exist for this lecture. "
+            "<div class='bg-blue-400/10 border border-blue-400/20 rounded-lg px-4 py-2.5 text-blue-300 text-sm mb-3'>📝 Notes already exist for this lecture. "
             "Click <strong>Regenerate</strong> to refresh them with the latest AI models.</div>",
             unsafe_allow_html=True
         )
@@ -62,17 +62,17 @@ else:
             for i, (msg, _) in enumerate(steps):
                 if i < active_idx:
                     step_placeholders[i].markdown(
-                        f"<div class='step-item done'>✅ &nbsp; {msg}</div>",
+                        f"<div class='flex items-center gap-3 px-4 py-2 rounded-lg mb-1.5 text-sm text-emerald-400 bg-emerald-400/5 border border-emerald-400/20'>✅ &nbsp; {msg}</div>",
                         unsafe_allow_html=True
                     )
                 elif i == active_idx:
                     step_placeholders[i].markdown(
-                        f"<div class='step-item active'>⏳ &nbsp; {msg}</div>",
+                        f"<div class='flex items-center gap-3 px-4 py-2 rounded-lg mb-1.5 text-sm text-purple-400 bg-purple-500/10 border border-purple-500/30 animate-pulse'>⏳ &nbsp; {msg}</div>",
                         unsafe_allow_html=True
                     )
                 else:
                     step_placeholders[i].markdown(
-                        f"<div class='step-item'>⬜ &nbsp; {msg}</div>",
+                        f"<div class='flex items-center gap-3 px-4 py-2 rounded-lg mb-1.5 text-sm text-slate-500 bg-white/5 border border-white/5'>⬜ &nbsp; {msg}</div>",
                         unsafe_allow_html=True
                     )
 

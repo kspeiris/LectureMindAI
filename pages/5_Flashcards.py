@@ -6,27 +6,7 @@ from utils.styles import inject_css, page_header
 
 inject_css()
 
-# ── Flip-card animation CSS ───────────────────────────────────────────────
-CSS_BLOCK = """
-<style>
-.flip-hint { font-size:0.78rem; color:#64748b; text-align:center; margin-top:0.3rem; }
-.fc-label-q { font-size:0.75rem; font-weight:700; letter-spacing:0.1em;
-               text-transform:uppercase; color:#a78bfa; margin-bottom:0.5rem; }
-.fc-label-a { font-size:0.75rem; font-weight:700; letter-spacing:0.1em;
-               text-transform:uppercase; color:#34d399; margin-bottom:0.5rem; }
-.fc-text    { font-size:1.1rem; line-height:1.6; color:#e2e8f0; }
-.progress-track { height:6px; background:rgba(255,255,255,0.08);
-                  border-radius:10px; margin:0.5rem 0 1.2rem 0; overflow:hidden; }
-.progress-fill  { height:100%; border-radius:10px;
-                  background:linear-gradient(90deg,#7c3aed,#60a5fa); transition:width 0.4s ease; }
-.known-count   { color:#34d399; font-weight:600; }
-.review-count  { color:#fb923c; font-weight:600; }
-</style>
-"""
-if hasattr(st, "html"):
-    st.html(CSS_BLOCK)
-else:
-    st.markdown(CSS_BLOCK, unsafe_allow_html=True)
+
 
 page_header("📇 Flashcards", "Study key concepts with AI-generated question & answer cards.")
 
@@ -83,12 +63,12 @@ review_set = st.session_state.fc_review
 answered = len(known_set) + len(review_set)
 pct = int(answered / total * 100)
 st.markdown(
-    f"<div style='display:flex; justify-content:space-between; font-size:0.85rem; color:#94a3b8;'>"
-    f"<span>Card <strong style='color:#e2e8f0;'>{idx + 1}</strong> of {total}</span>"
-    f"<span><span class='known-count'>✅ {len(known_set)} known</span> &nbsp; "
-    f"<span class='review-count'>🔁 {len(review_set)} review</span></span>"
+    f"<div class='flex justify-between text-sm text-slate-400 mb-1'>"
+    f"<span>Card <strong class='text-slate-200'>{idx + 1}</strong> of {total}</span>"
+    f"<span><span class='text-emerald-400 font-semibold'>✅ {len(known_set)} known</span> &nbsp; "
+    f"<span class='text-orange-400 font-semibold'>🔁 {len(review_set)} review</span></span>"
     f"</div>"
-    f"<div class='progress-track'><div class='progress-fill' style='width:{pct}%;'></div></div>",
+    f"<div class='h-1.5 bg-white/10 rounded-full mb-5 overflow-hidden'><div class='h-full bg-gradient-to-r from-purple-600 to-blue-400 rounded-full transition-all duration-300' style='width:{pct}%;'></div></div>",
     unsafe_allow_html=True
 )
 
@@ -98,28 +78,18 @@ with card_col:
     if not st.session_state.fc_flipped:
         # Front — Question
         st.markdown(f"""
-        <div class='flashcard-front flashcard-face'
-             style='background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(79,70,229,0.15));
-                    border:1px solid rgba(167,139,250,0.3); border-radius:20px;
-                    padding:2.5rem 2rem; min-height:220px;
-                    display:flex; flex-direction:column;
-                    align-items:center; justify-content:center; text-align:center;'>
-            <div class='fc-label-q'>QUESTION</div>
-            <div class='fc-text'>{current_fc['question']}</div>
+        <div class='w-full min-h-[240px] rounded-2xl flex flex-col items-center justify-center p-8 text-center shadow-xl bg-gradient-to-br from-purple-600/20 to-indigo-600/15 border border-purple-400/30'>
+            <div class='text-xs font-bold tracking-widest uppercase text-purple-400 mb-2'>QUESTION</div>
+            <div class='text-lg leading-relaxed text-slate-200'>{current_fc['question']}</div>
         </div>
-        <div class='flip-hint'>👇 Click "Reveal Answer" to flip the card</div>
+        <div class='text-xs text-slate-500 text-center mt-2'>👇 Click "Reveal Answer" to flip the card</div>
         """, unsafe_allow_html=True)
     else:
         # Back — Answer
         st.markdown(f"""
-        <div class='flashcard-back flashcard-face'
-             style='background:linear-gradient(135deg,rgba(52,211,153,0.18),rgba(16,185,129,0.12));
-                    border:1px solid rgba(52,211,153,0.35); border-radius:20px;
-                    padding:2.5rem 2rem; min-height:220px;
-                    display:flex; flex-direction:column;
-                    align-items:center; justify-content:center; text-align:center;'>
-            <div class='fc-label-a'>ANSWER</div>
-            <div class='fc-text'>{current_fc['answer']}</div>
+        <div class='w-full min-h-[240px] rounded-2xl flex flex-col items-center justify-center p-8 text-center shadow-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-400/30'>
+            <div class='text-xs font-bold tracking-widest uppercase text-emerald-400 mb-2'>ANSWER</div>
+            <div class='text-lg leading-relaxed text-slate-200'>{current_fc['answer']}</div>
         </div>
         """, unsafe_allow_html=True)
 

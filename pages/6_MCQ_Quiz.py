@@ -45,7 +45,7 @@ if not mcqs:
 # ── Quiz UI ───────────────────────────────────────────────────────────────
 st.markdown(f"### 📋 Test Your Knowledge — {len(mcqs)} Questions")
 st.markdown(
-    "<div class='info-strip'>Select one answer per question, then click <strong>Submit Quiz</strong>.</div>",
+    "<div class='bg-blue-400/10 border border-blue-400/20 rounded-lg px-4 py-2.5 text-blue-300 text-sm mb-3'>Select one answer per question, then click <strong>Submit Quiz</strong>.</div>",
     unsafe_allow_html=True
 )
 st.write("")

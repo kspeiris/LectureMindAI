@@ -31,12 +31,12 @@ with st.sidebar:
         lc, fc, mc, nc = get_lecture_count(), get_flashcards_count(), get_mcq_count(), get_notes_count()
         st.markdown(
             f"""
-            <div class='stat-mini' style='margin-bottom:0.5rem;'>
+            <div class='bg-white/5 border border-purple-500/20 rounded-xl px-4 py-3 text-center mb-2'>
               <div style='display:flex; justify-content:space-around;'>
-                <div><div class='stat-val'>{lc}</div><div class='stat-label'>Lectures</div></div>
-                <div><div class='stat-val' style='color:#60a5fa;'>{nc}</div><div class='stat-label'>Notes</div></div>
-                <div><div class='stat-val' style='color:#34d399;'>{fc}</div><div class='stat-label'>Cards</div></div>
-                <div><div class='stat-val' style='color:#f472b6;'>{mc}</div><div class='stat-label'>MCQs</div></div>
+                <div><div class='font-["Outfit"] text-2xl font-bold text-purple-400'>{lc}</div><div class='text-xs text-slate-500 uppercase tracking-wider mt-0.5'>Lectures</div></div>
+                <div><div class='font-["Outfit"] text-2xl font-bold text-blue-400'>{nc}</div><div class='text-xs text-slate-500 uppercase tracking-wider mt-0.5'>Notes</div></div>
+                <div><div class='font-["Outfit"] text-2xl font-bold text-emerald-400'>{fc}</div><div class='text-xs text-slate-500 uppercase tracking-wider mt-0.5'>Cards</div></div>
+                <div><div class='font-["Outfit"] text-2xl font-bold text-pink-400'>{mc}</div><div class='text-xs text-slate-500 uppercase tracking-wider mt-0.5'>MCQs</div></div>
               </div>
             </div>
             """,
@@ -54,17 +54,17 @@ with st.sidebar:
 
 # ── Hero Section ──────────────────────────────────────────────────────────
 st.markdown("""
-<div class='hero-section'>
-  <h1 style='font-size:3rem !important; margin-bottom:0.6rem;'>LectureMind AI</h1>
-  <p style='font-size:1.15rem; color:#94a3b8; max-width:600px; margin:0 auto 1.5rem auto;'>
+<div class='bg-gradient-to-br from-purple-600/20 via-indigo-600/10 to-emerald-500/10 border border-purple-500/20 rounded-[22px] px-8 py-10 text-center backdrop-blur-md mb-7 relative overflow-hidden'>
+  <h1 class='font-["Outfit"] text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-emerald-400 text-5xl font-extrabold mb-3'>LectureMind AI</h1>
+  <p class='text-lg text-slate-400 max-w-2xl mx-auto mb-6'>
     Transform your lecture materials into smart summaries, flashcards, MCQ quizzes,
     and an AI-powered study assistant — in minutes.
   </p>
-  <div style='display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap;'>
-    <span class='kw-pill' style='font-size:0.88rem;'>⚡ Powered by FLAN-T5</span>
-    <span class='kw-pill' style='font-size:0.88rem;'>🔍 RAG Knowledge Base</span>
-    <span class='kw-pill' style='font-size:0.88rem;'>📊 Progress Analytics</span>
-    <span class='kw-pill' style='font-size:0.88rem;'>📤 PDF & DOCX Export</span>
+  <div class='flex gap-3 justify-center flex-wrap'>
+    <span class='inline-block bg-gradient-to-br from-purple-500/30 to-indigo-500/20 border border-purple-500/30 rounded-full px-4 py-1.5 text-sm font-medium text-purple-300 backdrop-blur-sm transition-all hover:-translate-y-px hover:shadow-lg hover:from-purple-500/50 hover:to-indigo-500/40 cursor-default'>⚡ Powered by FLAN-T5</span>
+    <span class='inline-block bg-gradient-to-br from-purple-500/30 to-indigo-500/20 border border-purple-500/30 rounded-full px-4 py-1.5 text-sm font-medium text-purple-300 backdrop-blur-sm transition-all hover:-translate-y-px hover:shadow-lg hover:from-purple-500/50 hover:to-indigo-500/40 cursor-default'>🔍 RAG Knowledge Base</span>
+    <span class='inline-block bg-gradient-to-br from-purple-500/30 to-indigo-500/20 border border-purple-500/30 rounded-full px-4 py-1.5 text-sm font-medium text-purple-300 backdrop-blur-sm transition-all hover:-translate-y-px hover:shadow-lg hover:from-purple-500/50 hover:to-indigo-500/40 cursor-default'>📊 Progress Analytics</span>
+    <span class='inline-block bg-gradient-to-br from-purple-500/30 to-indigo-500/20 border border-purple-500/30 rounded-full px-4 py-1.5 text-sm font-medium text-purple-300 backdrop-blur-sm transition-all hover:-translate-y-px hover:shadow-lg hover:from-purple-500/50 hover:to-indigo-500/40 cursor-default'>📤 PDF & DOCX Export</span>
   </div>
 </div>
 """, unsafe_allow_html=True)
@@ -74,30 +74,30 @@ c1, c2, c3 = st.columns(3)
 
 with c1:
     st.markdown("""
-    <div class='premium-card'>
-      <div style='font-size:2.2rem; margin-bottom:0.7rem;'>📤</div>
-      <h3>Upload & Extract</h3>
-      <p>Upload PDF or PPTX files. The system extracts and cleans text with smart artifact removal,
+    <div class='bg-white/5 border border-purple-500/20 rounded-2xl p-6 backdrop-blur-md shadow-xl transition-all duration-200 h-full hover:-translate-y-1 hover:shadow-2xl hover:border-purple-500/40'>
+      <div class='text-4xl mb-3'>📤</div>
+      <h3 class='text-slate-200 text-lg font-semibold mb-2'>Upload & Extract</h3>
+      <p class='text-slate-400 text-sm leading-relaxed'>Upload PDF, PPTX, or TXT files. The system extracts and cleans text with smart artifact removal,
          duplicate detection, and custom title labelling.</p>
     </div>
     """, unsafe_allow_html=True)
 
 with c2:
     st.markdown("""
-    <div class='premium-card'>
-      <div style='font-size:2.2rem; margin-bottom:0.7rem;'>🧠</div>
-      <h3>AI Generation</h3>
-      <p>Generates structured bullet-point summaries, diverse keyword concepts, interactive
+    <div class='bg-white/5 border border-purple-500/20 rounded-2xl p-6 backdrop-blur-md shadow-xl transition-all duration-200 h-full hover:-translate-y-1 hover:shadow-2xl hover:border-purple-500/40'>
+      <div class='text-4xl mb-3'>🧠</div>
+      <h3 class='text-slate-200 text-lg font-semibold mb-2'>AI Generation</h3>
+      <p class='text-slate-400 text-sm leading-relaxed'>Generates structured bullet-point summaries, diverse keyword concepts, interactive
          flashcards, and concise MCQs — all powered by FLAN-T5-Base.</p>
     </div>
     """, unsafe_allow_html=True)
 
 with c3:
     st.markdown("""
-    <div class='premium-card'>
-      <div style='font-size:2.2rem; margin-bottom:0.7rem;'>🤖</div>
-      <h3>AI Study Assistant</h3>
-      <p>Ask any question in natural language. The RAG engine retrieves relevant passages,
+    <div class='bg-white/5 border border-purple-500/20 rounded-2xl p-6 backdrop-blur-md shadow-xl transition-all duration-200 h-full hover:-translate-y-1 hover:shadow-2xl hover:border-purple-500/40'>
+      <div class='text-4xl mb-3'>🤖</div>
+      <h3 class='text-slate-200 text-lg font-semibold mb-2'>AI Study Assistant</h3>
+      <p class='text-slate-400 text-sm leading-relaxed'>Ask any question in natural language. The RAG engine retrieves relevant passages,
          synthesises a precise answer, and shows confidence scores with source citations.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -107,30 +107,30 @@ st.write("")
 c4, c5, c6 = st.columns(3)
 with c4:
     st.markdown("""
-    <div class='premium-card'>
-      <div style='font-size:2.2rem; margin-bottom:0.7rem;'>📇</div>
-      <h3>Smart Flashcards</h3>
-      <p>Study with AI-generated question & answer cards. Mark cards as Known or
+    <div class='bg-white/5 border border-purple-500/20 rounded-2xl p-6 backdrop-blur-md shadow-xl transition-all duration-200 h-full hover:-translate-y-1 hover:shadow-2xl hover:border-purple-500/40'>
+      <div class='text-4xl mb-3'>📇</div>
+      <h3 class='text-slate-200 text-lg font-semibold mb-2'>Smart Flashcards</h3>
+      <p class='text-slate-400 text-sm leading-relaxed'>Study with AI-generated question & answer cards. Mark cards as Known or
          Review Again — the progress bar tracks your session in real time.</p>
     </div>
     """, unsafe_allow_html=True)
 
 with c5:
     st.markdown("""
-    <div class='premium-card'>
-      <div style='font-size:2.2rem; margin-bottom:0.7rem;'>✍️</div>
-      <h3>MCQ Quiz</h3>
-      <p>Test yourself with multiple-choice questions that have model-generated, concise
+    <div class='bg-white/5 border border-purple-500/20 rounded-2xl p-6 backdrop-blur-md shadow-xl transition-all duration-200 h-full hover:-translate-y-1 hover:shadow-2xl hover:border-purple-500/40'>
+      <div class='text-4xl mb-3'>✍️</div>
+      <h3 class='text-slate-200 text-lg font-semibold mb-2'>MCQ Quiz</h3>
+      <p class='text-slate-400 text-sm leading-relaxed'>Test yourself with multiple-choice questions that have model-generated, concise
          distractors. Get a score badge and performance gauge chart instantly.</p>
     </div>
     """, unsafe_allow_html=True)
 
 with c6:
     st.markdown("""
-    <div class='premium-card'>
-      <div style='font-size:2.2rem; margin-bottom:0.7rem;'>📊</div>
-      <h3>Analytics Dashboard</h3>
-      <p>Track uploaded lectures, notes, flashcards, and quiz history.
+    <div class='bg-white/5 border border-purple-500/20 rounded-2xl p-6 backdrop-blur-md shadow-xl transition-all duration-200 h-full hover:-translate-y-1 hover:shadow-2xl hover:border-purple-500/40'>
+      <div class='text-4xl mb-3'>📊</div>
+      <h3 class='text-slate-200 text-lg font-semibold mb-2'>Analytics Dashboard</h3>
+      <p class='text-slate-400 text-sm leading-relaxed'>Track uploaded lectures, notes, flashcards, and quiz history.
          Export notes as professional PDF or DOCX documents with one click.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -140,7 +140,7 @@ st.markdown("---")
 st.markdown("### 🚀 How to Get Started")
 step_cols = st.columns(4)
 steps = [
-    ("1️⃣", "Upload",    "Go to **Upload Lecture** and upload a PDF or PPTX file."),
+    ("1️⃣", "Upload",    "Go to **Upload Lecture** and upload a PDF, PPTX, or TXT file."),
     ("2️⃣", "Generate",  "Go to **Notes Generator** to create summaries and build the AI knowledge base."),
     ("3️⃣", "Study",     "Use **Flashcards** and **MCQ Quiz** to test your understanding."),
     ("4️⃣", "Ask AI",    "Open **AI Study Assistant** to ask questions and get cited answers."),
@@ -148,10 +148,10 @@ steps = [
 for col, (num, title, desc) in zip(step_cols, steps):
     with col:
         st.markdown(
-            f"<div class='premium-card' style='text-align:center;'>"
-            f"<div style='font-size:1.8rem;'>{num}</div>"
-            f"<h3>{title}</h3>"
-            f"<p style='font-size:0.88rem;'>{desc}</p>"
+            f"<div class='bg-white/5 border border-purple-500/20 rounded-2xl p-6 text-center backdrop-blur-md shadow-lg transition-all duration-200 h-full hover:-translate-y-1 hover:shadow-2xl hover:border-purple-500/40'>"
+            f"<div class='text-3xl mb-3'>{num}</div>"
+            f"<h3 class='text-slate-200 text-lg font-semibold mb-2'>{title}</h3>"
+            f"<p class='text-slate-400 text-sm leading-relaxed'>{desc}</p>"
             f"</div>",
             unsafe_allow_html=True
         )
