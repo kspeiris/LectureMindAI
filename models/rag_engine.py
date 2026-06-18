@@ -146,29 +146,28 @@ def query_rag(lecture_id: int, query: str, top_k: int = 5) -> str:
     if not retrieved:
         return "I couldn't find relevant information in the lecture for your question."
 
-    # Build context from top chunks (cap at ~1 400 chars for prompt budget)
-    context = " ".join(retrieved)[:1400]
+    # Build context from top chunks
+    context = " ".join(retrieved)[:1500]
     top_confidence = conf_scores[0] if conf_scores else 0.0
 
     # ── flan-t5-base answer synthesis ──────────────────────────────────────
     try:
         tokenizer, model = get_gen_model()
+        # Put question first so it never gets truncated if context is too long
         prompt = (
-            "You are a helpful study assistant. Answer the question in 2 to 4 complete sentences "
-            "using ONLY the information provided in the lecture content below. "
-            "Be accurate and do not add information not present in the context.\n\n"
-            f"Lecture Content:\n{context}\n\n"
+            "You are a comprehensive AI Study Assistant. Answer the question fully and completely in detail using ONLY the provided lecture context. "
             f"Question: {query}\n\n"
+            f"Context: {context}\n\n"
             "Answer:"
         )
-        inputs = tokenizer(prompt, return_tensors="pt", max_length=900, truncation=True)
+        inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
         outputs = model.generate(
             inputs["input_ids"],
-            max_length=220,
+            max_new_tokens=300,
             num_beams=5,
             early_stopping=True,
             no_repeat_ngram_size=3,
-            length_penalty=1.5,
+            length_penalty=2.0,
         )
         answer = tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
     except Exception as e:
@@ -185,7 +184,7 @@ def query_rag(lecture_id: int, query: str, top_k: int = 5) -> str:
     # ── Final response ──────────────────────────────────────────────────────
     response = (
         f"**📖 Answer:**\n\n{answer}\n\n"
-        f"<span class='conf-pill'>Relevance: {conf_label} ({top_confidence:.0%})</span>\n\n"
+        f"<span class='inline-block bg-emerald-400/10 border border-emerald-400/20 rounded-md px-2 py-0.5 text-xs text-emerald-400 font-semibold'>Relevance: {conf_label} ({top_confidence:.0%})</span>\n\n"
         "---\n\n**📚 Sources from Lecture:**\n"
     )
     for i, (ctx, score) in enumerate(zip(retrieved[:3], conf_scores[:3])):
