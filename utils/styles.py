@@ -1,6 +1,7 @@
 import streamlit as st
 
 PREMIUM_CSS = """
+<script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 
@@ -432,211 +433,8 @@ hr {
 [data-testid="stVerticalBlock"] { gap: 1.5rem !important; }
 
 /* ============================================================
-   CUSTOM COMPONENT CLASSES
+   CUSTOM COMPONENT CLASSES - Migrated to Tailwind
    ============================================================ */
-
-/* Premium Card */
-.premium-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(124,58,237,0.18);
-    border-radius: 18px;
-    padding: 1.5rem;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
-    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-    height: 100%;
-}
-.premium-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(124,58,237,0.18);
-    border-color: rgba(124,58,237,0.35);
-}
-.premium-card h3 { color: #e2e8f0 !important; font-size: 1.1rem !important; margin-bottom: 0.5rem !important; }
-.premium-card p  { color: #94a3b8 !important; font-size: 0.88rem !important; line-height: 1.6 !important; }
-
-/* Hero Section */
-.hero-section {
-    background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(79,70,229,0.12), rgba(52,211,153,0.07));
-    border: 1px solid rgba(124,58,237,0.22);
-    border-radius: 22px;
-    padding: 2.5rem 2rem;
-    text-align: center;
-    backdrop-filter: blur(16px);
-    margin-bottom: 1.8rem;
-    position: relative;
-    overflow: hidden;
-}
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: radial-gradient(ellipse at center, rgba(124,58,237,0.08) 0%, transparent 70%);
-    animation: pulse-bg 6s ease-in-out infinite;
-    pointer-events: none;
-}
-@keyframes pulse-bg {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.08); opacity: 0.7; }
-}
-
-/* Keyword Pill */
-.kw-pill {
-    display: inline-block;
-    background: linear-gradient(135deg, rgba(124,58,237,0.28), rgba(79,70,229,0.2));
-    border: 1px solid rgba(124,58,237,0.35);
-    border-radius: 20px;
-    padding: 0.28rem 0.8rem;
-    margin: 0.2rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #c4b5fd !important;
-    backdrop-filter: blur(8px);
-    transition: all 0.18s ease;
-    cursor: default;
-    white-space: nowrap;
-}
-.kw-pill:hover {
-    background: linear-gradient(135deg, rgba(124,58,237,0.48), rgba(79,70,229,0.38));
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(124,58,237,0.25);
-}
-
-/* Score Badge */
-.score-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1.2rem;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.02em;
-}
-.badge-excellent {
-    background: rgba(52,211,153,0.12);
-    border: 1px solid rgba(52,211,153,0.4);
-    color: #34d399 !important;
-}
-.badge-good {
-    background: rgba(96,165,250,0.12);
-    border: 1px solid rgba(96,165,250,0.4);
-    color: #60a5fa !important;
-}
-.badge-review {
-    background: rgba(251,146,60,0.12);
-    border: 1px solid rgba(251,146,60,0.4);
-    color: #fb923c !important;
-}
-
-/* Step Progress Item */
-.step-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.55rem 1rem;
-    border-radius: 10px;
-    margin-bottom: 0.35rem;
-    font-size: 0.88rem;
-    color: #64748b !important;
-    background: rgba(255,255,255,0.025);
-    border: 1px solid rgba(255,255,255,0.05);
-}
-.step-item.done {
-    color: #34d399 !important;
-    background: rgba(52,211,153,0.06);
-    border-color: rgba(52,211,153,0.2);
-}
-.step-item.active {
-    color: #a78bfa !important;
-    background: rgba(124,58,237,0.1);
-    border-color: rgba(124,58,237,0.3);
-    animation: pulse-border 1.5s ease-in-out infinite;
-}
-@keyframes pulse-border {
-    0%, 100% { border-color: rgba(124,58,237,0.3); }
-    50% { border-color: rgba(124,58,237,0.7); }
-}
-
-/* Info strip */
-.info-strip {
-    background: rgba(96,165,250,0.08);
-    border: 1px solid rgba(96,165,250,0.22);
-    border-radius: 10px;
-    padding: 0.65rem 1rem;
-    color: #93c5fd !important;
-    font-size: 0.87rem;
-    margin-bottom: 0.8rem;
-}
-
-/* Flashcard face */
-.flashcard-face {
-    width: 100%;
-    min-height: 240px;
-    border-radius: 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    text-align: center;
-    box-shadow: 0 6px 28px rgba(0,0,0,0.2);
-}
-.flashcard-front {
-    background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(79,70,229,0.14));
-    border: 1px solid rgba(124,58,237,0.32);
-}
-.flashcard-back {
-    background: linear-gradient(135deg, rgba(52,211,153,0.14), rgba(16,185,129,0.09));
-    border: 1px solid rgba(52,211,153,0.32);
-}
-
-/* Stat mini-card */
-.stat-mini {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(124,58,237,0.18);
-    border-radius: 10px;
-    padding: 0.7rem 1rem;
-    text-align: center;
-}
-.stat-mini .stat-val {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #a78bfa;
-}
-.stat-mini .stat-label {
-    font-size: 0.72rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-top: 2px;
-}
-
-/* Source box */
-.source-box {
-    background: rgba(255,255,255,0.03);
-    border-left: 3px solid rgba(96,165,250,0.45);
-    border-radius: 0 8px 8px 0;
-    padding: 0.5rem 0.9rem;
-    margin: 0.35rem 0;
-    font-size: 0.82rem;
-    color: #94a3b8 !important;
-    font-style: italic;
-}
-
-/* Confidence pill */
-.conf-pill {
-    display: inline-block;
-    background: rgba(52,211,153,0.1);
-    border: 1px solid rgba(52,211,153,0.22);
-    border-radius: 10px;
-    padding: 0.12rem 0.55rem;
-    font-size: 0.72rem;
-    color: #34d399 !important;
-    font-weight: 600;
-}
-
 </style>
 """
 
@@ -664,7 +462,8 @@ def keyword_pills_html(keywords: list) -> str:
     """Convert a list of keywords into styled pill badges HTML."""
     if not keywords:
         return ""
-    pills = "".join(f"<span class='kw-pill'>{kw}</span>" for kw in keywords if kw.strip())
+    # kw-pill tailwind equivalent
+    pills = "".join(f"<span class='inline-block bg-gradient-to-br from-purple-500/30 to-indigo-500/20 border border-purple-500/30 rounded-full px-3 py-1 m-1 text-sm font-medium text-purple-300 backdrop-blur-sm transition-all hover:-translate-y-px hover:shadow-lg hover:from-purple-500/50 hover:to-indigo-500/40 cursor-default whitespace-nowrap'>{kw}</span>" for kw in keywords if kw.strip())
     return f"<div style='margin: 0.5rem 0 1rem 0; line-height: 2.2;'>{pills}</div>"
 
 
@@ -672,13 +471,13 @@ def score_badge_html(score: int, total: int) -> str:
     """Return an HTML score badge based on percentage."""
     pct = (score / total * 100) if total > 0 else 0
     if pct >= 80:
-        cls, icon, label = "badge-excellent", "🏆", "Excellent!"
+        cls, icon, label = "bg-emerald-500/10 border-emerald-400/40 text-emerald-400", "🏆", "Excellent!"
     elif pct >= 60:
-        cls, icon, label = "badge-good", "👍", "Good Work"
+        cls, icon, label = "bg-blue-500/10 border-blue-400/40 text-blue-400", "👍", "Good Work"
     else:
-        cls, icon, label = "badge-review", "📖", "Keep Reviewing"
+        cls, icon, label = "bg-orange-500/10 border-orange-400/40 text-orange-400", "📖", "Keep Reviewing"
     return (
-        f"<div class='score-badge {cls}'>"
+        f"<div class='inline-flex items-center gap-2 px-5 py-2 rounded-full font-bold tracking-wide border {cls}'>"
         f"{icon} {score}/{total} — {label} ({pct:.0f}%)"
         f"</div>"
     )
