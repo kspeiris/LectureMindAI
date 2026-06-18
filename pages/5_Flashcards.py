@@ -62,14 +62,13 @@ review_set = st.session_state.fc_review
 # ── Progress bar ──────────────────────────────────────────────────────────
 answered = len(known_set) + len(review_set)
 pct = int(answered / total * 100)
-st.markdown(
-    f"<div class='flex justify-between text-sm text-slate-400 mb-1'>"
-    f"<span>Card <strong class='text-slate-200'>{idx + 1}</strong> of {total}</span>"
-    f"<span><span class='text-emerald-400 font-semibold'>✅ {len(known_set)} known</span> &nbsp; "
-    f"<span class='text-orange-400 font-semibold'>🔁 {len(review_set)} review</span></span>"
+st.html(
+    f"<div class='progress-meta'>"
+    f"<span>Card <strong>{idx + 1}</strong> of {total}</span>"
+    f"<span><span style='color:#34d399;'>✅ {len(known_set)} known</span> &nbsp; "
+    f"<span style='color:#fb923c;'>🔁 {len(review_set)} review</span></span>"
     f"</div>"
-    f"<div class='h-1.5 bg-white/10 rounded-full mb-5 overflow-hidden'><div class='h-full bg-gradient-to-r from-purple-600 to-blue-400 rounded-full transition-all duration-300' style='width:{pct}%;'></div></div>",
-    unsafe_allow_html=True
+    f"<div class='progress-track'><div class='progress-fill' style='width:{pct}%;'></div></div>"
 )
 
 # ── Flashcard display ─────────────────────────────────────────────────────
@@ -77,21 +76,21 @@ _, card_col, _ = st.columns([1, 7, 1])
 with card_col:
     if not st.session_state.fc_flipped:
         # Front — Question
-        st.markdown(f"""
-        <div class='w-full min-h-[240px] rounded-2xl flex flex-col items-center justify-center p-8 text-center shadow-xl bg-gradient-to-br from-purple-600/20 to-indigo-600/15 border border-purple-400/30'>
-            <div class='text-xs font-bold tracking-widest uppercase text-purple-400 mb-2'>QUESTION</div>
-            <div class='text-lg leading-relaxed text-slate-200'>{current_fc['question']}</div>
+        st.html(f"""
+        <div class='flashcard-face flashcard-front'>
+            <div class='fc-label'>QUESTION</div>
+            <div class='fc-text'>{current_fc['question']}</div>
         </div>
-        <div class='text-xs text-slate-500 text-center mt-2'>👇 Click "Reveal Answer" to flip the card</div>
-        """, unsafe_allow_html=True)
+        <div class='muted-hint'>👇 Click "Reveal Answer" to flip the card</div>
+        """)
     else:
         # Back — Answer
-        st.markdown(f"""
-        <div class='w-full min-h-[240px] rounded-2xl flex flex-col items-center justify-center p-8 text-center shadow-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-400/30'>
-            <div class='text-xs font-bold tracking-widest uppercase text-emerald-400 mb-2'>ANSWER</div>
-            <div class='text-lg leading-relaxed text-slate-200'>{current_fc['answer']}</div>
+        st.html(f"""
+        <div class='flashcard-face flashcard-back'>
+            <div class='fc-label'>ANSWER</div>
+            <div class='fc-text'>{current_fc['answer']}</div>
         </div>
-        """, unsafe_allow_html=True)
+        """)
 
 st.write("")
 
