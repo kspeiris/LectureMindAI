@@ -6,14 +6,16 @@ CREATE TABLE IF NOT EXISTS lectures (
     filename TEXT NOT NULL,
     upload_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     pages INTEGER DEFAULT 0,
-    word_count INTEGER DEFAULT 0
+    word_count INTEGER DEFAULT 0,
+    file_hash TEXT DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS notes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    lecture_id INTEGER NOT NULL,
+    lecture_id INTEGER NOT NULL UNIQUE,
     summary TEXT,
     keywords TEXT,
+    generated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(lecture_id) REFERENCES lectures(id) ON DELETE CASCADE
 );
 
@@ -34,6 +36,7 @@ CREATE TABLE IF NOT EXISTS mcqs (
     option_c TEXT NOT NULL,
     option_d TEXT NOT NULL,
     correct_answer TEXT NOT NULL,
+    difficulty TEXT DEFAULT 'medium',
     FOREIGN KEY(lecture_id) REFERENCES lectures(id) ON DELETE CASCADE
 );
 
