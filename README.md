@@ -19,13 +19,15 @@ Built for privacy and cost-efficiency, the project relies entirely on local NLP 
 
 ## 📸 Screenshots
 
-*(Add your screenshots here! For example: `![Dashboard View](assets/dashboard.png)`)*
-
-- **Dashboard:** Interactive analytics and progress tracking.
-- **Upload & Generate:** Seamless file ingestion and AI processing.
-- **Notes Viewer:** Clean reading interface with export options.
-- **Flashcards & Quizzes:** Interactive active recall tools.
-- **AI Study Assistant:** Chat interface powered by local RAG.
+![Image](images/1.png)
+![Image](images/2.png)
+![Image](images/3.png)
+![Image](images/4.png)
+![Image](images/5.png)
+![Image](images/6.png)
+![Image](images/7.png)
+![Image](images/8.png)
+![Image](images/10.png)
 
 ## 🧱 Tech Stack & Architecture
 
