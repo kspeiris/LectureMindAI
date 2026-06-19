@@ -44,9 +44,8 @@ if not mcqs:
 
 # ── Quiz UI ───────────────────────────────────────────────────────────────
 st.markdown(f"### 📋 Test Your Knowledge — {len(mcqs)} Questions")
-st.markdown(
-    "<div class='bg-blue-400/10 border border-blue-400/20 rounded-lg px-4 py-2.5 text-blue-300 text-sm mb-3'>Select one answer per question, then click <strong>Submit Quiz</strong>.</div>",
-    unsafe_allow_html=True
+st.html(
+    "<div class='info-strip'>Select one answer per question, then click <strong>Submit Quiz</strong>.</div>"
 )
 st.write("")
 
@@ -57,12 +56,11 @@ with st.form("quiz_form"):
                 mcq.get('option_c',''), mcq.get('option_d','')]
         opts = [o for o in opts if o.strip()]
 
-        st.markdown(
+        st.html(
             f"<div style='background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);"
             f"border-radius:12px; padding:1rem 1.2rem; margin-bottom:0.6rem;'>"
             f"<strong style='color:#e2e8f0;'>Q{i+1}:</strong> "
-            f"<span style='color:#cbd5e1;'>{mcq['question']}</span></div>",
-            unsafe_allow_html=True
+            f"<span style='color:#cbd5e1;'>{mcq['question']}</span></div>"
         )
         user_answers[i] = st.radio(
             f"q_{i+1}",
@@ -96,7 +94,7 @@ if submitted:
     st.markdown("### 🏆 Your Result")
 
     # Score badge
-    st.markdown(score_badge_html(score, total), unsafe_allow_html=True)
+    st.html(score_badge_html(score, total))
     st.write("")
 
     # Gauge chart
@@ -147,21 +145,19 @@ if submitted:
             icon         = "✅" if is_right else "❌"
 
             ans_color = "#34d399" if is_right else "#f87171"
-            st.markdown(
+            st.html(
                 f"<div style='background:{bg_color}; border:1px solid {border_color};"
                 f"border-radius:12px; padding:1rem 1.2rem; margin-bottom:0.7rem;'>"
                 f"<strong style='color:#e2e8f0;'>{icon} Q{i+1}: {mcq['question']}</strong><br>"
                 f"<span style='color:#94a3b8;'>Your answer: </span>"
-                f"<span style='color:{ans_color};'><strong>{chosen}</strong></span>",
-                unsafe_allow_html=True
+                f"<span style='color:{ans_color};'><strong>{chosen}</strong></span>"
             )
             if not is_right:
-                st.markdown(
+                st.html(
                     f"<span style='color:#94a3b8;'> &nbsp;·&nbsp; Correct: </span>"
-                    f"<span style='color:#34d399;'><strong>{correct}</strong></span>",
-                    unsafe_allow_html=True
+                    f"<span style='color:#34d399;'><strong>{correct}</strong></span>"
                 )
-            st.markdown("</div>", unsafe_allow_html=True)
+            st.html("</div>")
 
     # ── Regenerate ────────────────────────────────────────────────────────
     st.write("")

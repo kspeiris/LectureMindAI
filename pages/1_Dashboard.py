@@ -129,13 +129,12 @@ if lectures:
         with st.container():
             col_info, col_del = st.columns([5, 1])
             with col_info:
-                st.markdown(
-                    f"**{lec['title']}** &nbsp;&nbsp;"
+                st.html(
+                    f"<strong>{lec['title']}</strong> &nbsp;&nbsp;"
                     f"<small style='color:#64748b;'>"
                     f"{lec.get('pages', 0)} pages · {lec.get('word_count', 0):,} words · "
                     f"Uploaded {lec.get('upload_date', '')[:10]}"
-                    f"</small>",
-                    unsafe_allow_html=True
+                    f"</small>"
                 )
             with col_del:
                 if st.button("🗑️ Delete", key=f"del_{lec['id']}",
@@ -149,5 +148,4 @@ if lectures:
                     delete_lecture(lec['id'])
                     st.success(f"Deleted '{lec['title']}'")
                     st.rerun()
-        st.markdown("<hr style='margin:0.3rem 0; border-color:rgba(255,255,255,0.05);'>",
-                    unsafe_allow_html=True)
+        st.html("<hr style='margin:0.3rem 0; border-color:rgba(255,255,255,0.05);'>")

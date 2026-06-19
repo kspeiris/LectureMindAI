@@ -83,7 +83,7 @@ else:
             else:
                 pills_html = keyword_pills_html(kw_list)
 
-            st.markdown(pills_html, unsafe_allow_html=True)
+            st.html(pills_html)
         else:
             st.info("No keywords extracted.")
 
@@ -132,8 +132,7 @@ else:
 
         # ── Meta info ─────────────────────────────────────────────────────
         if notes.get('generated_at'):
-            st.markdown(
+            st.html(
                 f"<small style='color:#475569;'>Notes last generated: "
-                f"{notes['generated_at'][:16].replace('T', ' ')}</small>",
-                unsafe_allow_html=True
+                f"{notes['generated_at'][:16].replace('T', ' ')}</small>"
             )

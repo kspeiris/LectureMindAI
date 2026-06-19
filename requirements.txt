@@ -11,3 +11,4 @@ keybert
 faiss-cpu
 python-docx
 fpdf2
+nltk

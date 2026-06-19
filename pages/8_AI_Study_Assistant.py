@@ -95,7 +95,6 @@ if prompt := st.chat_input("Ask anything about the lecture…"):
 msg_list = st.session_state.messages.get(selected_id, [])
 user_msgs = [m for m in msg_list if m['role'] == 'user']
 if user_msgs:
-    st.markdown(
-        f"<small style='color:#475569;'>{len(user_msgs)} question(s) asked this session</small>",
-        unsafe_allow_html=True
+    st.html(
+        f"<small style='color:#475569;'>{len(user_msgs)} question(s) asked this session</small>"
     )
