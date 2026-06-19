@@ -1,5 +1,7 @@
 # LectureMind AI 📚
 
+![Image](images/hero.png)
+
 LectureMind AI is a local-first, Streamlit-based study companion that transforms lecture files (PDF, PPTX, TXT) into structured notes, flashcards, multiple-choice quizzes, exports, analytics, and a searchable Retrieval-Augmented Generation (RAG) study assistant.
 
 Built for privacy and cost-efficiency, the project relies entirely on local NLP inference using Hugging Face Transformers, Sentence Transformers, and FAISS. No external API calls are made, meaning all lecture data remains completely private.
