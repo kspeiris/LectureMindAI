@@ -17,6 +17,16 @@ Built for privacy and cost-efficiency, the project relies entirely on local NLP 
 - **Document Export:** Export generated notes as cleanly formatted PDF or DOCX files.
 - **Premium UI:** A fully custom Streamlit dark-mode UI with glassmorphic cards, CSS animations, and polished layouts.
 
+## 📸 Screenshots
+
+*(Add your screenshots here! For example: `![Dashboard View](assets/dashboard.png)`)*
+
+- **Dashboard:** Interactive analytics and progress tracking.
+- **Upload & Generate:** Seamless file ingestion and AI processing.
+- **Notes Viewer:** Clean reading interface with export options.
+- **Flashcards & Quizzes:** Interactive active recall tools.
+- **AI Study Assistant:** Chat interface powered by local RAG.
+
 ## 🧱 Tech Stack & Architecture
 
 This application is built with a focus on local-first processing, combining modern Python data science tools with local NLP inference to ensure data privacy and zero API costs.
