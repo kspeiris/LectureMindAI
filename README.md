@@ -143,3 +143,13 @@ Open the local URL shown in the terminal (usually `http://localhost:8501`).
 
 ## 🔐 Privacy & Local Execution
 Because this application relies exclusively on local models (`flan-t5`, `KeyBERT`, `Sentence Transformers`), **zero data leaves your machine**. Lecture files, extracted text, generated notes, and vector indexes are processed and stored locally in your workspace.
+
+## ⚠️ Limitations & Known Constraints
+
+While LectureMind AI is designed to be a robust, local-first study companion, its architecture introduces a few inherent limitations:
+
+1. **Hardware & Inference Speed:** Since all NLP models (`flan-t5-base`, `KeyBERT`, Sentence Transformers) run locally—and default to CPU execution via `faiss-cpu` and PyTorch—the speed of summarization, quiz generation, and RAG retrieval depends heavily on your machine's CPU and RAM capabilities.
+2. **Model Size Trade-offs:** The `flan-t5-base` model is lightweight (approx. 250M parameters) to ensure it can run on standard consumer hardware. While highly capable for specific tasks, it does not possess the vast reasoning depth of massive commercial LLMs. It may occasionally hallucinate or generate slightly awkward MCQ distractors.
+3. **Context Window Limits:** Local LLMs have strict token limits. To process lengthy lectures, the app relies on semantic chunking and RAG. Consequently, the AI Study Assistant synthesizes answers based on isolated retrieved snippets rather than holding the entire lecture in context at once.
+4. **File Parsing Constraints:** Text extraction via `pdfplumber` and `python-pptx` performs best on text-heavy, standard layouts. Scanned PDFs (which require OCR) or heavily image-based slide decks will not yield extractable text, leading to poor AI generation.
+5. **Database Scalability:** The application uses SQLite for zero-setup local storage. While perfect for a single-user desktop app, SQLite is not designed for high-concurrency multi-user environments. Deploying this to a cloud server for many simultaneous users may result in database locking issues.
